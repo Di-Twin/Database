@@ -1,4 +1,4 @@
-const { connectMongoDB, connectPostgres } = require("../config/database");
+const { connectMongoDB, connectPostgres } = require("@dtwin/config");
 
 const User = require("./models/postgres/user");
 const UserProfile = require("./models/postgres/userProfile");

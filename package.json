@@ -13,8 +13,9 @@
   "author": "Badri",
   "license": "MIT",
   "dependencies": {
-    "sequelize": "^6.0.0",
+    "@dtwin/config": "github:Di-Twin/Back-End-Config",
+    "mongoose": "^6.0.0",
     "pg": "^8.0.0",
-    "mongoose": "^6.0.0"
+    "sequelize": "^6.0.0"
   }
 }
