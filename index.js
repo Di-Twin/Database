@@ -3,7 +3,7 @@ const { connectMongoDB, connectPostgres } = require("@dtwin/config");
 const User = require("./models/postgres/user");
 const UserProfile = require("./models/postgres/userProfile");
 
-const { sequelize } = require("../config/database");
+const { sequelize } = require("@dtwin/config");
 
 // 🔗 Define Associations
 User.hasOne(UserProfile, {
