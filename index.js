@@ -17,8 +17,6 @@ UserProfile.belongsTo(User, {
   onUpdate: "CASCADE",
 });
 
-connectPostgres()
-
 const syncDatabase = async () => {
   try {
     await sequelize.authenticate(); // Ensure DB connection is active
