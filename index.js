@@ -1,14 +1,14 @@
 // config/index.js (for centralizing imports)
-const { connectMongoDB, connectPostgres, sequelize } = require("@dtwin/config");
+import { connectMongoDB, connectPostgres, sequelize } from "@dtwin/config";
 
 // 🏗️ Import Models
-const User = require("../models/postgres/user");
-const UserProfile = require("../models/postgres/userProfile");
-const Year = require("../models/postgres/year");
-const Month = require("../models/postgres/month");
-const Day = require("../models/postgres/day");
-const SleepSession = require("../models/postgres/sleepSession");
-const SleepStage = require("../models/postgres/sleepStage");
+const User = require("./models/postgres/user");
+const UserProfile = require("./models/postgres/userProfile");
+const Year = require("./models/postgres/year");
+const Month = require("./models/postgres/month");
+const Day = require("./models/postgres/day");
+const SleepSession = require("./models/postgres/sleepSession");
+const SleepStage = require("./models/postgres/sleepStage");
 
 // 🔗 Define Associations
 const defineAssociations = () => {
