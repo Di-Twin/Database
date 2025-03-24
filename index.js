@@ -52,11 +52,11 @@ const syncDatabase = async () => {
     // Sync all models in the right order
     await User.sync({ alter: true });
     await UserProfile.sync({ alter: true });
+    await SleepSession.sync({ alter: true });
+    await SleepStage.sync({ alter: true });
     await Year.sync({ alter: true });
     await Month.sync({ alter: true });
     await Day.sync({ alter: true });
-    await SleepSession.sync({ alter: true });
-    await SleepStage.sync({ alter: true });
 
     console.log("✅ Database synced successfully!");
   } catch (error) {
