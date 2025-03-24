@@ -27,7 +27,7 @@ const Day = sequelize.define(
       type: DataTypes.UUID,
       allowNull: true,
       references: {
-        model: "SleepSessions",
+        model: "SleepSession",
         key: "id",
       },
       onDelete: "CASCADE",

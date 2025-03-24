@@ -37,7 +37,7 @@ Day.hasOne(SleepSession, { foreignKey: "dayId", as: "sleepSession", onDelete: "C
 SleepSession.belongsTo(Day, { foreignKey: "dayId", onDelete: "CASCADE" });
 
 // User ↔ SleepSession
-User.hasMany(SleepSession, { foreignKey: "userId", as: "sleepSessions", onDelete: "CASCADE" });
+User.hasMany(SleepSession, { foreignKey: "userId", as: "sleepSession", onDelete: "CASCADE" });
 SleepSession.belongsTo(User, { foreignKey: "userId", onDelete: "CASCADE" });
 
 // SleepSession ↔ SleepStage (1-to-Many)
