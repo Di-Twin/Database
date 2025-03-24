@@ -1,6 +1,7 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("@dtwin/config");
 const Month = require("./month");
+const sleepSession = require("./sleepSession");
 
 const Day = sequelize.define(
   "Day",
@@ -27,7 +28,7 @@ const Day = sequelize.define(
       type: DataTypes.UUID,
       allowNull: true,
       references: {
-        model: "SleepSession",
+        model: sleepSession,
         key: "id",
       },
       onDelete: "CASCADE",
