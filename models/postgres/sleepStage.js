@@ -25,7 +25,7 @@ const SleepStage = sequelize.define(
       allowNull: false,
       references: {
         model: User,
-        key: "id",
+        key: "userId",
       },
       onDelete: "CASCADE",
     },

@@ -1,5 +1,5 @@
 // config/index.js (for centralizing imports)
-import { connectMongoDB, connectPostgres, sequelize } from "@dtwin/config";
+const { connectMongoDB, connectPostgres, sequelize } = require("@dtwin/config");
 
 // 🏗️ Import Models
 const User = require("./models/postgres/user");
