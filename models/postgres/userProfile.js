@@ -60,6 +60,16 @@ const UserProfile = sequelize.define(
       allowNull: true,
       defaultValue: null,
     },
+    target_calories: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: null,
+    },
+    total_calories_burned_today: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: null,
+    },
   },
   {
     tableName: "UserProfile",
