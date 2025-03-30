@@ -9,32 +9,83 @@ const Month = require("./models/postgres/month");
 const Day = require("./models/postgres/day");
 const SleepSession = require("./models/postgres/sleepSession");
 const SleepStage = require("./models/postgres/sleepStage");
+const ActivitySession = require("./models/postgres/activitySession");
 
 // 🔗 Define Associations
 const defineAssociations = () => {
   // User ↔ UserProfile
-  User.hasOne(UserProfile, { foreignKey: "userId", onDelete: "CASCADE", onUpdate: "CASCADE" });
-  UserProfile.belongsTo(User, { foreignKey: "userId", onDelete: "CASCADE", onUpdate: "CASCADE" });
+  User.hasOne(UserProfile, {
+    foreignKey: "userId",
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  });
+  UserProfile.belongsTo(User, {
+    foreignKey: "userId",
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  });
 
   // Year ↔ Month
-  Year.hasMany(Month, { foreignKey: "yearId", as: "months", onDelete: "CASCADE" });
+  Year.hasMany(Month, {
+    foreignKey: "yearId",
+    as: "months",
+    onDelete: "CASCADE",
+  });
   Month.belongsTo(Year, { foreignKey: "yearId", onDelete: "CASCADE" });
 
   // Month ↔ Day
-  Month.hasMany(Day, { foreignKey: "monthId", as: "days", onDelete: "CASCADE" });
+  Month.hasMany(Day, {
+    foreignKey: "monthId",
+    as: "days",
+    onDelete: "CASCADE",
+  });
   Day.belongsTo(Month, { foreignKey: "monthId", onDelete: "CASCADE" });
 
   // Day ↔ SleepSession
-  Day.hasOne(SleepSession, { foreignKey: "dayId", as: "sleepSession", onDelete: "CASCADE" });
+  Day.hasOne(SleepSession, {
+    foreignKey: "dayId",
+    as: "sleepSession",
+    onDelete: "CASCADE",
+  });
   SleepSession.belongsTo(Day, { foreignKey: "dayId", onDelete: "CASCADE" });
 
   // User ↔ SleepSession
-  User.hasMany(SleepSession, { foreignKey: "userId", as: "sleepSessions", onDelete: "CASCADE" });
+  User.hasMany(SleepSession, {
+    foreignKey: "userId",
+    as: "sleepSessions",
+    onDelete: "CASCADE",
+  });
   SleepSession.belongsTo(User, { foreignKey: "userId", onDelete: "CASCADE" });
 
   // SleepSession ↔ SleepStage
-  SleepSession.hasMany(SleepStage, { foreignKey: "sessionId", as: "stages", onDelete: "CASCADE" });
-  SleepStage.belongsTo(SleepSession, { foreignKey: "sessionId", onDelete: "CASCADE" });
+  SleepSession.hasMany(SleepStage, {
+    foreignKey: "sessionId",
+    as: "stages",
+    onDelete: "CASCADE",
+  });
+  SleepStage.belongsTo(SleepSession, {
+    foreignKey: "sessionId",
+    onDelete: "CASCADE",
+  });
+
+  // User ↔ ActivitySession
+  User.hasMany(ActivitySession, {
+    foreignKey: "userId",
+    as: "activitySessions",
+    onDelete: "CASCADE",
+  });
+  ActivitySession.belongsTo(User, {
+    foreignKey: "userId",
+    onDelete: "CASCADE",
+  });
+
+  // Day ↔ ActivitySession
+  Day.hasMany(ActivitySession, {
+    foreignKey: "dayId",
+    as: "activitySessions",
+    onDelete: "CASCADE",
+  });
+  ActivitySession.belongsTo(Day, { foreignKey: "dayId", onDelete: "CASCADE" });
 };
 
 // Sync DB
@@ -50,4 +101,16 @@ const syncDatabase = async () => {
 };
 syncDatabase();
 
-module.exports = { sequelize, connectMongoDB, connectPostgres, User, UserProfile, Year, Month, Day, SleepSession, SleepStage };
+module.exports = {
+  sequelize,
+  connectMongoDB,
+  connectPostgres,
+  User,
+  UserProfile,
+  Year,
+  Month,
+  Day,
+  SleepSession,
+  SleepStage,
+  ActivitySession,
+};
