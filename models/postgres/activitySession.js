@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const { sequelize } = require("../config/database");
+const { sequelize } = require("@dtwin/config");
 const User = require("./user");
 const Day = require("./day");
 
