@@ -1,6 +1,7 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("@dtwin/config");
 const User = require("./user");
+const { access } = require("fs");
 
 const UserProfile = sequelize.define(
   "UserProfile",
@@ -10,7 +11,7 @@ const UserProfile = sequelize.define(
       allowNull: false,
       references: {
         model: User,
-        key: 'userId',
+        key: "userId",
       },
       primaryKey: true,
     },
@@ -56,6 +57,11 @@ const UserProfile = sequelize.define(
       allowNull: true,
     },
     health_score: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: null,
+    },
+    activity_score: {
       type: DataTypes.INTEGER,
       allowNull: true,
       defaultValue: null,
