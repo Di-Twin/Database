@@ -31,7 +31,7 @@ const HealthMetrics = sequelize.define(
       onDelete: "CASCADE",
     },
     blood_pressure: {
-      type: DataTypes.ARRAY(DataTypes.STRING), // Stores an array of BP readings
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: true,
     },
     bp_max: {
@@ -47,7 +47,7 @@ const HealthMetrics = sequelize.define(
       allowNull: true,
     },
     water_intake: {
-      type: DataTypes.ARRAY(DataTypes.FLOAT), // Stores an array of water intake amounts
+      type: DataTypes.ARRAY(DataTypes.FLOAT),
       allowNull: true,
     },
     total_water_taken: {
@@ -62,8 +62,16 @@ const HealthMetrics = sequelize.define(
       type: DataTypes.FLOAT,
       allowNull: true,
     },
+    activity_score_array: {
+      type: DataTypes.ARRAY(DataTypes.FLOAT),
+      allowNull: true,
+    },
     food_score: {
       type: DataTypes.FLOAT,
+      allowNull: true,
+    },
+    food_score_array: {
+      type: DataTypes.ARRAY(DataTypes.FLOAT),
       allowNull: true,
     },
     total_calories_burnt: {
@@ -71,7 +79,7 @@ const HealthMetrics = sequelize.define(
       allowNull: true,
     },
     nutrition_taken: {
-      type: DataTypes.ARRAY(DataTypes.STRING), // Stores an array of nutrition-related data
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: true,
     },
     health_score: {
@@ -86,7 +94,36 @@ const HealthMetrics = sequelize.define(
   },
   {
     tableName: "health_metrics",
-    timestamps: false, // Disable Sequelize's automatic timestamps
+    timestamps: false,
+    hooks: {
+      beforeSave: (healthMetrics) => {
+        // Helper function to calculate average
+        const calculateAverage = (arr) =>
+          Array.isArray(arr) && arr.length > 0
+            ? arr.reduce((sum, num) => sum + num, 0) / arr.length
+            : null;
+
+        // Auto-calculate scores before saving
+        healthMetrics.activity_score = calculateAverage(
+          healthMetrics.activity_score_array
+        );
+        healthMetrics.food_score = calculateAverage(
+          healthMetrics.food_score_array
+        );
+
+        // Calculate an overall health score
+        const scores = [
+          healthMetrics.sleep_score,
+          healthMetrics.activity_score,
+          healthMetrics.food_score,
+        ].filter((score) => score !== null); // Ignore null values
+
+        healthMetrics.health_score =
+          scores.length > 0
+            ? scores.reduce((sum, num) => sum + num, 0) / scores.length
+            : null;
+      },
+    },
   }
 );
 
