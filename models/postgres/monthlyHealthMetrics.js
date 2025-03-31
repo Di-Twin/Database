@@ -38,6 +38,10 @@ const MonthlyHealthMetrics = sequelize.define(
       type: DataTypes.FLOAT,
       allowNull: true,
     },
+    monthly_sleep_data: {
+      type: DataTypes.JSONB, // Stores detailed sleep data as JSON
+      allowNull: true,
+    },
     monthly_activity_score: {
       type: DataTypes.FLOAT,
       allowNull: true,
@@ -65,6 +69,5 @@ const MonthlyHealthMetrics = sequelize.define(
     timestamps: false, // Disable Sequelize's automatic timestamps
   }
 );
-
 
 module.exports = MonthlyHealthMetrics;
