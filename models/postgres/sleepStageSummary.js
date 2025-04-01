@@ -3,8 +3,8 @@ const { sequelize } = require("@dtwin/config");
 const SleepSession = require("./sleepSession");
 const User = require("./user");
 
-const SleepStage = sequelize.define(
-  "SleepStage",
+const SleepStageSummary = sequelize.define(
+  "SleepStageSummary",
   {
     id: {
       type: DataTypes.UUID,
@@ -33,26 +33,13 @@ const SleepStage = sequelize.define(
       type: DataTypes.ENUM("DEEP", "LIGHT", "REM", "AWAKE"),
       allowNull: false,
     },
-    startTime: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-    endTime: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-    durationSeconds: {
+    count: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    isShortData: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-      allowNull: false,
-    },
-    stageCount: {
+    minutes: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
     },
     thirtyDayAvgMinutes: {
       type: DataTypes.FLOAT,
@@ -65,8 +52,8 @@ const SleepStage = sequelize.define(
   },
   {
     timestamps: false,
-    tableName: "sleep_stages",
+    tableName: "sleep_stage_summaries",
   }
 );
 
-module.exports = SleepStage;
+module.exports = SleepStageSummary; 

@@ -34,6 +34,14 @@ const Activity = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    activity_name: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    activity_type_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
     start_time: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -49,6 +57,11 @@ const Activity = sequelize.define(
     duration_seconds: {
       type: DataTypes.INTEGER,
       allowNull: true,
+    },
+    active_duration: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      comment: "Active duration in milliseconds",
     },
     calories_burned: {
       type: DataTypes.FLOAT,
@@ -70,10 +83,54 @@ const Activity = sequelize.define(
       type: DataTypes.FLOAT,
       allowNull: true,
     },
+    heart_rate_zones: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+      comment: "JSON containing heart rate zones data",
+    },
+    active_zone_minutes: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+      comment: "JSON containing active zone minutes data",
+    },
+    activity_levels: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+      comment: "JSON containing activity levels data",
+    },
+    elevation_gain: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
+    pace: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
+    speed: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
+    log_id: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    log_type: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    source: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+      comment: "JSON containing source information",
+    },
     created_at: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,
+    },
+    last_modified: {
+      type: DataTypes.DATE,
+      allowNull: true,
     },
   },
   {

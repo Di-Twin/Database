@@ -29,6 +29,10 @@ const SleepSession = sequelize.define(
       },
       onDelete: "CASCADE",
     },
+    dateOfSleep: {
+      type: DataTypes.DATEONLY,
+      allowNull: false,
+    },
     startTime: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -48,6 +52,52 @@ const SleepSession = sequelize.define(
     efficiencyScore: {
       type: DataTypes.FLOAT,
       allowNull: true,
+    },
+    isMainSleep: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+      allowNull: false,
+    },
+    infoCode: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      allowNull: false,
+    },
+    externalLogId: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
+    },
+    minutesAfterWakeup: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      allowNull: false,
+    },
+    minutesAsleep: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    minutesAwake: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    minutesToFallAsleep: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      allowNull: false,
+    },
+    logType: {
+      type: DataTypes.ENUM("auto_detected", "manual"),
+      defaultValue: "auto_detected",
+      allowNull: false,
+    },
+    timeInBed: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    type: {
+      type: DataTypes.ENUM("classic", "stages"),
+      defaultValue: "stages",
+      allowNull: false,
     },
     createdAt: {
       type: DataTypes.DATE,
