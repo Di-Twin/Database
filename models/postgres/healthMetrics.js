@@ -4,7 +4,7 @@ const User = require("./user");
 const Day = require("./day");
 
 const HealthMetrics = sequelize.define(
-  "HealthMetrics",
+  "health_metrics",
   {
     id: {
       type: DataTypes.UUID,
