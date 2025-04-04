@@ -62,6 +62,10 @@ const MonthlyHealthMetrics = sequelize.define(
       type: DataTypes.JSONB,
       allowNull: true,
     },
+    monthly_steps_data: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+    },
     created_at: {
       type: DataTypes.DATE,
       allowNull: false,
