@@ -190,7 +190,6 @@ const syncDatabase = async () => {
     console.error("❌ Error syncing database:", error);
   }
 };
-syncDatabase();
 
 module.exports = {
   sequelize,
@@ -208,4 +207,5 @@ module.exports = {
   MonthlyHealthMetrics,
   FoodSession,
   HeartData,
+  syncDatabase,
 };
