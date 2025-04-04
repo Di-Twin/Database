@@ -91,6 +91,10 @@ const HealthMetrics = sequelize.define(
       type: DataTypes.FLOAT,
       allowNull: true,
     },
+    metabolic_score: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
     created_at: {
       type: DataTypes.DATE,
       allowNull: false,
