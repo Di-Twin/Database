@@ -30,20 +30,16 @@ const HealthMetrics = sequelize.define(
       },
       onDelete: "CASCADE",
     },
-    blood_pressure: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
-      allowNull: true,
-    },
-    bp_max: {
-      type: DataTypes.FLOAT,
-      allowNull: true,
-    },
-    bp_avg: {
+    bp: {
       type: DataTypes.FLOAT,
       allowNull: true,
     },
     total_steps: {
       type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    distance_covered: {
+      type: DataTypes.FLOAT,
       allowNull: true,
     },
     water_intake: {
@@ -55,6 +51,10 @@ const HealthMetrics = sequelize.define(
       allowNull: true,
     },
     sleep_score: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
+    sleep_hours: {
       type: DataTypes.FLOAT,
       allowNull: true,
     },
@@ -77,6 +77,11 @@ const HealthMetrics = sequelize.define(
     total_calories_burnt: {
       type: DataTypes.FLOAT,
       allowNull: true,
+    },
+    target_calories: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: null,
     },
     nutrition_taken: {
       type: DataTypes.ARRAY(DataTypes.STRING),

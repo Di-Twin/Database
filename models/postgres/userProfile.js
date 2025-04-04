@@ -1,7 +1,6 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("@dtwin/config");
 const User = require("./user");
-const { access } = require("fs");
 
 const UserProfile = sequelize.define(
   "UserProfile",
@@ -57,21 +56,6 @@ const UserProfile = sequelize.define(
       allowNull: true,
     },
     health_score: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      defaultValue: null,
-    },
-    activity_score: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      defaultValue: null,
-    },
-    target_calories: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      defaultValue: null,
-    },
-    total_calories_burned_today: {
       type: DataTypes.INTEGER,
       allowNull: true,
       defaultValue: null,

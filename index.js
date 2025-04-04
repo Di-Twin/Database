@@ -12,7 +12,7 @@ const SleepStage = require("./models/postgres/sleepStage");
 const ActivitySession = require("./models/postgres/activitySession");
 const HealthMetrics = require("./models/postgres/healthMetrics");
 const MonthlyHealthMetrics = require("./models/postgres/monthlyHealthMetrics");
-
+const HeartData = require("./models/postgres/heartData");
 // 🔗 Define Associations
 const defineAssociations = () => {
   // User ↔ UserProfile
@@ -132,6 +132,28 @@ const defineAssociations = () => {
     foreignKey: "monthId",
     onDelete: "CASCADE",
   });
+
+  // User ↔ HeartData
+  User.hasMany(HeartData, {
+    foreignKey: "userId",
+    as: "heartData",
+    onDelete: "CASCADE",
+  });
+  HeartData.belongsTo(User, {
+    foreignKey: "userId",
+    onDelete: "CASCADE",
+  });
+
+  // Day ↔ HeartData
+  Day.hasMany(HeartData, {
+    foreignKey: "dayId",
+    as: "heartData",
+    onDelete: "CASCADE",
+  });
+  HeartData.belongsTo(Day, {
+    foreignKey: "dayId",
+    onDelete: "CASCADE",
+  });
 };
 
 // Sync DB
@@ -161,4 +183,5 @@ module.exports = {
   ActivitySession,
   HealthMetrics,
   MonthlyHealthMetrics,
+  HeartData,
 };
