@@ -125,6 +125,7 @@ const HealthMetrics = sequelize.define(
           healthMetrics.sleep_score,
           healthMetrics.activity_score,
           healthMetrics.food_score,
+          healthMetrics.metabolic_score,
         ].filter((score) => score !== null); // Ignore null values
 
         healthMetrics.health_score =
