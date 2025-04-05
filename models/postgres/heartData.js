@@ -48,6 +48,10 @@ const HealthMetrics = sequelize.define("heart_data", {
     type: DataTypes.JSON,
     allowNull: true,
   },
+  hrv: {
+    type: DataTypes.FLOAT,
+    allowNull: true,
+  },
   created_at: {
     type: DataTypes.DATE,
     allowNull: false,
