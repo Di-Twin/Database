@@ -37,6 +37,10 @@ const FoodSession = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    foodImage: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     calories: {
       type: DataTypes.FLOAT,
       allowNull: false,
@@ -67,6 +71,14 @@ const FoodSession = sequelize.define(
     },
     source: {
       type: DataTypes.STRING,
+      allowNull: true,
+    },
+    gi: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
+    gl: {
+      type: DataTypes.FLOAT,
       allowNull: true,
     },
     createdAt: {
