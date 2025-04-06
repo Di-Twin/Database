@@ -183,7 +183,7 @@ const defineAssociations = () => {
   // UserProfile ↔ Medication
   UserProfile.hasMany(Medication, {
     foreignKey: "userId",
-    as: "medicationList", // <-- changed alias
+    as: "medicationRecords", // <-- changed alias
     onDelete: "CASCADE",
   });
   
