@@ -20,7 +20,7 @@ const UserProfile = sequelize.define(
       defaultValue: [],
     },
     medications: {
-      type: DataTypes.ARRAY(DataTypes.TEXT),
+      type: DataTypes.ARRAY(DataTypes.JSONB),
       allowNull: true,
       defaultValue: [],
     },
