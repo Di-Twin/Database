@@ -60,6 +60,16 @@ const UserProfile = sequelize.define(
       allowNull: true,
       defaultValue: null,
     },
+    hasWatch: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: false,
+    },
+    target_calories: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: null,
+    },
   },
   {
     tableName: "UserProfile",

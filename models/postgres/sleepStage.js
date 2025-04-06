@@ -45,6 +45,19 @@ const SleepStage = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    isShortData: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false,
+    },
+    stageCount: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    thirtyDayAvgMinutes: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
     createdAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
