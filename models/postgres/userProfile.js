@@ -76,6 +76,12 @@ const UserProfile = sequelize.define(
       allowNull: true,
       defaultValue: null,
     },
+    wearableIntegration: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+      defaultValue: {},
+      comment: "Stores wearable device integration details like Fitbit, Apple Health, etc."
+    },
   },
   {
     tableName: "UserProfile",
