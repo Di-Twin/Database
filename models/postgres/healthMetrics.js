@@ -4,7 +4,7 @@ const User = require("./user");
 const Day = require("./day");
 
 const HealthMetrics = sequelize.define(
-  "HealthMetrics",
+  "health_metrics",
   {
     id: {
       type: DataTypes.UUID,
@@ -30,20 +30,16 @@ const HealthMetrics = sequelize.define(
       },
       onDelete: "CASCADE",
     },
-    blood_pressure: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
-      allowNull: true,
-    },
-    bp_max: {
-      type: DataTypes.FLOAT,
-      allowNull: true,
-    },
-    bp_avg: {
+    bp: {
       type: DataTypes.FLOAT,
       allowNull: true,
     },
     total_steps: {
       type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    distance_covered: {
+      type: DataTypes.FLOAT,
       allowNull: true,
     },
     water_intake: {
@@ -55,6 +51,10 @@ const HealthMetrics = sequelize.define(
       allowNull: true,
     },
     sleep_score: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
+    sleep_hours: {
       type: DataTypes.FLOAT,
       allowNull: true,
     },
@@ -78,11 +78,24 @@ const HealthMetrics = sequelize.define(
       type: DataTypes.FLOAT,
       allowNull: true,
     },
+    target_calories: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: null,
+    },
     nutrition_taken: {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: true,
     },
     health_score: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
+    metabolic_score: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
+    vo2Max: {
       type: DataTypes.FLOAT,
       allowNull: true,
     },
@@ -116,6 +129,7 @@ const HealthMetrics = sequelize.define(
           healthMetrics.sleep_score,
           healthMetrics.activity_score,
           healthMetrics.food_score,
+          healthMetrics.metabolic_score,
         ].filter((score) => score !== null); // Ignore null values
 
         healthMetrics.health_score =

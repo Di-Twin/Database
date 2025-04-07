@@ -1,16 +1,15 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("@dtwin/config");
 const User = require("./user");
-const Month = require("./month");
+const Day = require("./day");
 
-const MonthlyHealthMetrics = sequelize.define(
-  "MonthlyHealthMetrics",
+const FoodSession = sequelize.define(
+  "FoodSession",
   {
     id: {
       type: DataTypes.UUID,
-      primaryKey: true,
-      allowNull: false,
       defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
     },
     userId: {
       type: DataTypes.UUID,
@@ -21,61 +20,76 @@ const MonthlyHealthMetrics = sequelize.define(
       },
       onDelete: "CASCADE",
     },
-    monthId: {
+    dayId: {
       type: DataTypes.UUID,
       allowNull: false,
       references: {
-        model: Month,
+        model: Day,
         key: "id",
       },
       onDelete: "CASCADE",
     },
-    monthly_health_score: {
-      type: DataTypes.FLOAT,
-      allowNull: true,
-    },
-    monthly_sleep_score: {
-      type: DataTypes.FLOAT,
-      allowNull: true,
-    },
-    monthly_sleep_data: {
-      type: DataTypes.JSONB, // Stores detailed sleep data as JSON
-      allowNull: true,
-    },
-    monthly_activity_score: {
-      type: DataTypes.FLOAT,
-      allowNull: true,
-    },
-    monthly_activity_data: {
-      type: DataTypes.JSONB, // Stores detailed activity data as JSON
-      allowNull: true,
-    },
-    monthly_food_score: {
-      type: DataTypes.FLOAT,
-      allowNull: true,
-    },
-    monthly_food_intake_data: {
-      type: DataTypes.JSONB, // Stores detailed food intake data as JSON
-      allowNull: true,
-    },
-    monthly_heart_rate_data: {
-      type: DataTypes.JSONB,
-      allowNull: true,
-    },
-    monthly_steps_data: {
-      type: DataTypes.JSONB,
-      allowNull: true,
-    },
-    created_at: {
+    foodTime: {
       type: DataTypes.DATE,
       allowNull: false,
+    },
+    foodName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    foodImage: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    calories: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+    protein: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
+    carbohydrates: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
+    fats: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
+    fiber: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
+    sugar: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
+    sodium: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
+    source: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    gi: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
+    gl: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
+    createdAt: {
+      type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
   },
   {
-    tableName: "monthly_health_metrics",
-    timestamps: false, // Disable Sequelize's automatic timestamps
+    timestamps: false,
+    tableName: "food_sessions",
   }
 );
 
-module.exports = MonthlyHealthMetrics;
+module.exports = FoodSession;
