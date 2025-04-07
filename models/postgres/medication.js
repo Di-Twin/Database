@@ -39,6 +39,10 @@ const Medication = sequelize.define(
       type: DataTypes.BOOLEAN, // true for reminders, false otherwise
       allowNull: false,
     },
+    dose: {
+      type: DataTypes.STRING, // e.g., "500mg", "1 tablet"
+      allowNull: false,
+    },
   },
   {
     tableName: "Medications",

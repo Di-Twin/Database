@@ -104,6 +104,15 @@ const HealthMetrics = sequelize.define(
       allowNull: false,
       defaultValue: DataTypes.NOW,
     },
+    medication_data: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+    },
+    medication_notifications: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+    },
+    
   },
   {
     tableName: "health_metrics",
