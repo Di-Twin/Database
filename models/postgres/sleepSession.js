@@ -49,11 +49,6 @@ const SleepSession = sequelize.define(
       type: DataTypes.FLOAT,
       allowNull: true,
     },
-    logType: {
-      type: DataTypes.ENUM("auto_detected", "manual"),
-      defaultValue: "auto_detected",
-      allowNull: true,
-    },
     createdAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
