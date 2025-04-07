@@ -52,7 +52,7 @@ const SleepSession = sequelize.define(
     logType: {
       type: DataTypes.ENUM("auto_detected", "manual"),
       defaultValue: "auto_detected",
-      allowNull: false,
+      allowNull: true,
     },
     createdAt: {
       type: DataTypes.DATE,
