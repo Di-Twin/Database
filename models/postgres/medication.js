@@ -1,3 +1,7 @@
+const { DataTypes } = require("sequelize");
+const { sequelize } = require("@dtwin/config");
+const UserProfile = require("./userProfile");
+
 const Medication = sequelize.define(
   "Medication",
   {
@@ -55,3 +59,5 @@ const Medication = sequelize.define(
     updatedAt: "updated_at",
   }
 );
+
+module.exports = Medication;
