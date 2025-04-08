@@ -112,7 +112,10 @@ const HealthMetrics = sequelize.define(
       type: DataTypes.JSONB,
       allowNull: true,
     },
-    
+    weight: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
   },
   {
     tableName: "health_metrics",

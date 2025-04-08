@@ -32,6 +32,10 @@ const UserProfile = sequelize.define(
       type: DataTypes.DECIMAL(5, 2),
       allowNull: true,
     },
+    target_weight_kg: {
+      type: DataTypes.DECIMAL(5, 2),
+      allowNull: true,
+    },
     family_history: {
       type: DataTypes.JSONB,
       allowNull: true,
@@ -70,16 +74,12 @@ const UserProfile = sequelize.define(
       allowNull: true,
       defaultValue: null,
     },
-    total_calories_burned_today: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      defaultValue: null,
-    },
     wearableIntegration: {
       type: DataTypes.JSONB,
       allowNull: true,
       defaultValue: {},
-      comment: "Stores wearable device integration details like Fitbit, Apple Health, etc."
+      comment:
+        "Stores wearable device integration details like Fitbit, Apple Health, etc.",
     },
   },
   {
