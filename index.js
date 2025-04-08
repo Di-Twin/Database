@@ -181,13 +181,13 @@ const defineAssociations = () => {
   });
 
   // UserProfile ↔ Medication
-  UserProfile.hasMany(Medication, {
+  User.hasMany(Medication, {
     foreignKey: "userId",
     as: "medicationRecords", // <-- changed alias
     onDelete: "CASCADE",
   });
   
-  Medication.belongsTo(UserProfile, {
+  Medication.belongsTo(User, {
     foreignKey: "userId",
     as: "user",
     onDelete: "CASCADE",

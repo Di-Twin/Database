@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("@dtwin/config");
-const UserProfile = require("./userProfile");
+const User = require("./userProfile");
 
 const Medication = sequelize.define(
   "Medication",
@@ -14,7 +14,7 @@ const Medication = sequelize.define(
       type: DataTypes.UUID,
       allowNull: false,
       references: {
-        model: UserProfile,
+        model: User,
         key: "userId",
       },
       onDelete: "CASCADE",
