@@ -58,10 +58,6 @@ const HealthMetrics = sequelize.define(
         max: 100
       }
     },
-    steps: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
     total_steps: {
       type: DataTypes.INTEGER,
       allowNull: true,
