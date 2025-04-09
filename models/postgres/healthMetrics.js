@@ -66,10 +66,6 @@ const HealthMetrics = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: true,
     },
-    distance: {
-      type: DataTypes.FLOAT,
-      allowNull: true,
-    },
     distance_covered: {
       type: DataTypes.FLOAT,
       allowNull: true,
