@@ -34,6 +34,34 @@ const HealthMetrics = sequelize.define(
       type: DataTypes.FLOAT,
       allowNull: true,
     },
+    spo2_avg: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+      validate: {
+        min: 0,
+        max: 100
+      }
+    },
+    spo2_min: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+      validate: {
+        min: 0,
+        max: 100
+      }
+    },
+    spo2_max: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+      validate: {
+        min: 0,
+        max: 100
+      }
+    },
+    steps: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
     total_steps: {
       type: DataTypes.INTEGER,
       allowNull: true,
