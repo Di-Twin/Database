@@ -85,6 +85,14 @@ const FoodSession = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    metabolicImpact: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    sugarSpike: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
     createdAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
