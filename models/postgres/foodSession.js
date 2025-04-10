@@ -81,6 +81,10 @@ const FoodSession = sequelize.define(
       type: DataTypes.FLOAT,
       allowNull: true,
     },
+    servingSize: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     createdAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
