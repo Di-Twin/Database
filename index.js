@@ -208,7 +208,7 @@ const defineAssociations = () => {
   // Update User ↔ FoodSession association
   User.hasMany(FoodSession, {
     foreignKey: "userId",
-    as: "foodSessions",
+    as: "userFoodSessions",
     onDelete: "CASCADE",
   });
   FoodSession.belongsTo(User, {
@@ -219,7 +219,7 @@ const defineAssociations = () => {
   // Update Day ↔ FoodSession association
   Day.hasMany(FoodSession, {
     foreignKey: "dayId",
-    as: "foodSessions",
+    as: "dayFoodSessions",
     onDelete: "CASCADE",
   });
   FoodSession.belongsTo(Day, {
