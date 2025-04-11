@@ -27,6 +27,10 @@ const FoodItem = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    mealType: {
+      type: DataTypes.STRING, // e.g., "breakfast", "lunch", "dinner", "snack"
+      allowNull: false,
+    },
     servingAmount: {
       type: DataTypes.FLOAT,
       allowNull: true,

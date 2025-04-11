@@ -33,10 +33,6 @@ const FoodSession = sequelize.define(
       type: DataTypes.DATE,
       allowNull: false,
     },
-    mealType: {
-      type: DataTypes.STRING, // e.g., "breakfast", "lunch", "dinner", "snack"
-      allowNull: false,
-    },
     totalCalories: {
       type: DataTypes.FLOAT,
       allowNull: false,
