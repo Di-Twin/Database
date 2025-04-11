@@ -13,6 +13,7 @@ const ActivitySession = require("./models/postgres/activitySession");
 const HealthMetrics = require("./models/postgres/healthMetrics");
 const MonthlyHealthMetrics = require("./models/postgres/monthlyHealthMetrics");
 const FoodSession = require("./models/postgres/foodSession");
+const FoodItem = require("./models/postgres/foodItem")
 const HeartData = require("./models/postgres/heartData");
 const Medication = require("./models/postgres/medication");
 
@@ -183,13 +184,46 @@ const defineAssociations = () => {
   // UserProfile ↔ Medication
   UserProfile.hasMany(Medication, {
     foreignKey: "userId",
-    as: "medicationRecords", // <-- changed alias
+    as: "medicationRecords",
     onDelete: "CASCADE",
   });
   
   Medication.belongsTo(UserProfile, {
     foreignKey: "userId",
     as: "user",
+    onDelete: "CASCADE",
+  });
+
+  // FoodSession ↔ FoodItem
+  FoodSession.hasMany(FoodItem, {
+    foreignKey: "sessionId",
+    as: "foodItems",
+    onDelete: "CASCADE",
+  });
+  FoodItem.belongsTo(FoodSession, {
+    foreignKey: "sessionId",
+    onDelete: "CASCADE",
+  });
+
+  // Update User ↔ FoodSession association
+  User.hasMany(FoodSession, {
+    foreignKey: "userId",
+    as: "foodSessions",
+    onDelete: "CASCADE",
+  });
+  FoodSession.belongsTo(User, {
+    foreignKey: "userId",
+    onDelete: "CASCADE",
+  });
+
+  // Update Day ↔ FoodSession association
+  Day.hasMany(FoodSession, {
+    foreignKey: "dayId",
+    as: "foodSessions",
+    onDelete: "CASCADE",
+  });
+  FoodSession.belongsTo(Day, {
+    foreignKey: "dayId",
     onDelete: "CASCADE",
   });
   

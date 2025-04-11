@@ -29,68 +29,36 @@ const FoodSession = sequelize.define(
       },
       onDelete: "CASCADE",
     },
-    foodTime: {
+    sessionTime: {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    foodName: {
-      type: DataTypes.STRING,
+    mealType: {
+      type: DataTypes.STRING, // e.g., "breakfast", "lunch", "dinner", "snack"
       allowNull: false,
     },
-    foodImage: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    calories: {
+    totalCalories: {
       type: DataTypes.FLOAT,
       allowNull: false,
+      defaultValue: 0,
     },
-    protein: {
+    totalProtein: {
       type: DataTypes.FLOAT,
-      allowNull: true,
+      allowNull: false,
+      defaultValue: 0,
     },
-    carbohydrates: {
+    totalCarbs: {
       type: DataTypes.FLOAT,
-      allowNull: true,
+      allowNull: false,
+      defaultValue: 0,
     },
-    fats: {
+    totalFats: {
       type: DataTypes.FLOAT,
-      allowNull: true,
+      allowNull: false,
+      defaultValue: 0,
     },
-    fiber: {
-      type: DataTypes.FLOAT,
-      allowNull: true,
-    },
-    sugar: {
-      type: DataTypes.FLOAT,
-      allowNull: true,
-    },
-    sodium: {
-      type: DataTypes.FLOAT,
-      allowNull: true,
-    },
-    source: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    gi: {
-      type: DataTypes.FLOAT,
-      allowNull: true,
-    },
-    gl: {
-      type: DataTypes.FLOAT,
-      allowNull: true,
-    },
-    servingSize: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    metabolicImpact: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
-    sugarSpike: {
-      type: DataTypes.INTEGER,
+    notes: {
+      type: DataTypes.TEXT,
       allowNull: true,
     },
     createdAt: {
