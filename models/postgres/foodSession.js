@@ -57,6 +57,10 @@ const FoodSession = sequelize.define(
       type: DataTypes.TEXT,
       allowNull: true,
     },
+    scores: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+    },
     createdAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
