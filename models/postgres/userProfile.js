@@ -81,6 +81,12 @@ const UserProfile = sequelize.define(
       comment:
         "Stores wearable device integration details like Fitbit, Apple Health, etc.",
     },
+    fcmTokens: {
+      type: DataTypes.ARRAY(DataTypes.TEXT),
+      allowNull: true,
+      defaultValue: [],
+      comment: "Array of FCM tokens for push notifications across user devices"
+    },
   },
   {
     tableName: "UserProfile",
