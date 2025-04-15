@@ -25,6 +25,17 @@ const UserProfile = sequelize.define(
       allowNull: true,
       defaultValue: [],
     },
+    meal_timings: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+      defaultValue: {
+        breakfast: "08:00",
+        lunch: "13:00",
+        dinner: "19:00",
+        snack: "16:00"
+      },
+      comment: "Stores meal notification times in 24-hour format (HH:MM)"
+    },
     height_cm: {
       type: DataTypes.DECIMAL(5, 2),
       allowNull: true,
