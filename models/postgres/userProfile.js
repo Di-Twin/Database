@@ -1,7 +1,6 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("@dtwin/config");
 const User = require("./user");
-const { access } = require("fs");
 
 const UserProfile = sequelize.define(
   "UserProfile",
@@ -21,7 +20,7 @@ const UserProfile = sequelize.define(
       defaultValue: [],
     },
     medications: {
-      type: DataTypes.ARRAY(DataTypes.TEXT),
+      type: DataTypes.ARRAY(DataTypes.JSONB),
       allowNull: true,
       defaultValue: [],
     },
@@ -41,6 +40,10 @@ const UserProfile = sequelize.define(
       allowNull: true,
     },
     weight_kg: {
+      type: DataTypes.DECIMAL(5, 2),
+      allowNull: true,
+    },
+    target_weight_kg: {
       type: DataTypes.DECIMAL(5, 2),
       allowNull: true,
     },
@@ -72,20 +75,28 @@ const UserProfile = sequelize.define(
       allowNull: true,
       defaultValue: null,
     },
-    activity_score: {
-      type: DataTypes.INTEGER,
+    hasWatch: {
+      type: DataTypes.BOOLEAN,
       allowNull: true,
-      defaultValue: null,
+      defaultValue: false,
     },
     target_calories: {
       type: DataTypes.INTEGER,
       allowNull: true,
       defaultValue: null,
     },
-    total_calories_burned_today: {
-      type: DataTypes.INTEGER,
+    wearableIntegration: {
+      type: DataTypes.JSONB,
       allowNull: true,
-      defaultValue: null,
+      defaultValue: {},
+      comment:
+        "Stores wearable device integration details like Fitbit, Apple Health, etc.",
+    },
+    fcmTokens: {
+      type: DataTypes.ARRAY(DataTypes.TEXT),
+      allowNull: true,
+      defaultValue: [],
+      comment: "Array of FCM tokens for push notifications across user devices"
     },
   },
   {
