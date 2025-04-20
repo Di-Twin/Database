@@ -16,6 +16,7 @@ const FoodSession = require("./models/postgres/foodSession");
 const FoodItem = require("./models/postgres/foodItem")
 const HeartData = require("./models/postgres/heartData");
 const Medication = require("./models/postgres/medication");
+const Feedback = require("./models/postgres/feedback");
 
 // 🔗 Define Associations
 const defineAssociations = () => {
@@ -227,6 +228,16 @@ const defineAssociations = () => {
     onDelete: "CASCADE",
   });
   
+  // User ↔ Feedback
+  User.hasMany(Feedback, {
+    foreignKey: "userId",
+    as: "feedbacks",
+    onDelete: "CASCADE",
+  });
+  Feedback.belongsTo(User, {
+    foreignKey: "userId",
+    onDelete: "CASCADE",
+  });
 };
 
 // Sync DB
