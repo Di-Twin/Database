@@ -227,7 +227,7 @@ const defineAssociations = () => {
     foreignKey: "dayId",
     onDelete: "CASCADE",
   });
-  
+
   // User ↔ Feedback
   User.hasMany(Feedback, {
     foreignKey: "userId",
@@ -271,4 +271,5 @@ module.exports = {
   HeartData,
   Medication,
   syncDatabase,
+  Feedback,
 };
