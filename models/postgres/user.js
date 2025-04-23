@@ -14,6 +14,19 @@ const User = sequelize.define(
       allowNull: true,
       unique: true,
     },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    isOauth: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    oAuthProvider: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     location: {
       type: DataTypes.STRING,
       allowNull: true,
