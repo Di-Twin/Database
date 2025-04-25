@@ -13,7 +13,7 @@
   "author": "Badri",
   "license": "MIT",
   "dependencies": {
-    "@dtwin/config": "git+https://github.com/Di-Twin/Back-End-Config#qa",
+    "@dtwin/config": "git+https://github.com/Di-Twin/Back-End-Config",
     "mongoose": "^6.0.0",
     "pg": "^8.0.0",
     "sequelize": "^6.0.0"
