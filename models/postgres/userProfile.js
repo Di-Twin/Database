@@ -31,9 +31,9 @@ const UserProfile = sequelize.define(
         breakfast: "08:00",
         lunch: "13:00",
         dinner: "19:00",
-        snack: "16:00"
+        snack: "16:00",
       },
-      comment: "Stores meal notification times in 24-hour format (HH:MM)"
+      comment: "Stores meal notification times in 24-hour format (HH:MM)",
     },
     height_cm: {
       type: DataTypes.DECIMAL(5, 2),
@@ -96,7 +96,7 @@ const UserProfile = sequelize.define(
       type: DataTypes.ARRAY(DataTypes.TEXT),
       allowNull: true,
       defaultValue: [],
-      comment: "Array of FCM tokens for push notifications across user devices"
+      comment: "Array of FCM tokens for push notifications across user devices",
     },
   },
   {
@@ -104,7 +104,51 @@ const UserProfile = sequelize.define(
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",
+    hooks: {
+      beforeSave: (userProfile) => {
+        const { weight_kg, height_cm, age, gender } = userProfile;
+
+        if (weight_kg && height_cm && age && gender) {
+          try {
+            const bmr = calculateBMR(
+              parseFloat(weight_kg),
+              parseFloat(height_cm),
+              parseInt(age, 10),
+              gender
+            );
+            userProfile.target_calories = Math.round(bmr + 1000);
+          } catch (error) {
+            console.error("Error calculating BMR:", error.message);
+            userProfile.target_calories = null;
+          }
+        } else {
+          userProfile.target_calories = null;
+        }
+      },
+    },
   }
 );
+
+function calculateBMR(weightKg, heightCm, ageYears, gender) {
+  // Validate input
+  if (weightKg <= 0 || heightCm <= 0 || ageYears <= 0) {
+    throw new Error("Weight, height, and age must be positive values.");
+  }
+  if (gender !== "male" && gender !== "female") {
+    throw new Error("Gender must be 'male' or 'female'.");
+  }
+
+  // Constants for Mifflin-St Jeor Equation
+  const BASE_BMR = {
+    male: 5, // Extra calories added for men
+    female: -161, // Subtracted for women
+  };
+
+  // BMR Calculation
+  const bmr =
+    10 * weightKg + 6.25 * heightCm - 5 * ageYears + BASE_BMR[gender];
+
+  return bmr;
+}
 
 module.exports = UserProfile;
