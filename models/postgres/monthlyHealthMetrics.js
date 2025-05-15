@@ -71,6 +71,10 @@ const MonthlyHealthMetrics = sequelize.define(
       allowNull: false,
       defaultValue: DataTypes.NOW,
     },
+    monthly_leaderboard_score: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
   },
   {
     tableName: "monthly_health_metrics",
