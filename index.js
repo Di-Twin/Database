@@ -306,4 +306,6 @@ module.exports = {
   Medication,
   syncDatabase,
   Feedback,
+  DietPlan,
+  ExercisePlan,
 };
