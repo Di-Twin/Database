@@ -98,17 +98,17 @@ const UserProfile = sequelize.define(
       defaultValue: [],
       comment: "Array of FCM tokens for push notifications across user devices",
     },
-    diet_plan: {
+    disliked_meals: {
       type: DataTypes.JSONB,
       allowNull: true,
       defaultValue: null,
-      comment: "Current diet plan with meal options",
+      comment: "List of disliked meals",
     },
-    exercise_plan: {
+    disliked_exercises: {
       type: DataTypes.JSONB,
       allowNull: true,
       defaultValue: null,
-      comment: "Current exercise plan",
+      comment: "List of disliked exercises",
     },
     diet_preferences: {
       type: DataTypes.JSONB,
