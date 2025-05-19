@@ -144,6 +144,13 @@ const UserProfile = sequelize.define(
       beforeSave: (userProfile) => {
         const { weight_kg, height_cm, age, gender } = userProfile;
 
+        if (
+          userProfile.changed("diet_plan") ||
+          userProfile.changed("exercise_plan")
+        ) {
+          userProfile.last_plan_update = new Date();
+        }
+
         if (weight_kg && height_cm && age && gender) {
           try {
             const bmr = calculateBMR(
