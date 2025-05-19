@@ -98,6 +98,42 @@ const UserProfile = sequelize.define(
       defaultValue: [],
       comment: "Array of FCM tokens for push notifications across user devices",
     },
+    diet_plan: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+      defaultValue: null,
+      comment: "Current diet plan with meal options",
+    },
+    exercise_plan: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+      defaultValue: null,
+      comment: "Current exercise plan",
+    },
+    diet_preferences: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+      defaultValue: {
+        disliked_meals: [],
+        disliked_ingredients: [],
+        allergies: [],
+        dietary_restrictions: [],
+      },
+    },
+    exercise_preferences: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+      defaultValue: {
+        equipment_available: [],
+        preferred_types: [],
+        time_available: 30,
+        days_per_week: 3,
+      },
+    },
+    last_plan_update: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
   },
   {
     tableName: "UserProfile",
@@ -145,8 +181,7 @@ function calculateBMR(weightKg, heightCm, ageYears, gender) {
   };
 
   // BMR Calculation
-  const bmr =
-    10 * weightKg + 6.25 * heightCm - 5 * ageYears + BASE_BMR[gender];
+  const bmr = 10 * weightKg + 6.25 * heightCm - 5 * ageYears + BASE_BMR[gender];
 
   return bmr;
 }
