@@ -13,10 +13,12 @@ const ActivitySession = require("./models/postgres/activitySession");
 const HealthMetrics = require("./models/postgres/healthMetrics");
 const MonthlyHealthMetrics = require("./models/postgres/monthlyHealthMetrics");
 const FoodSession = require("./models/postgres/foodSession");
-const FoodItem = require("./models/postgres/foodItem")
+const FoodItem = require("./models/postgres/foodItem");
 const HeartData = require("./models/postgres/heartData");
 const Medication = require("./models/postgres/medication");
 const Feedback = require("./models/postgres/feedback");
+const DietPlan = require("./models/postgres/dietPlan");
+const ExercisePlan = require("./models/postgres/exercisePlan");
 
 // 🔗 Define Associations
 const defineAssociations = () => {
@@ -188,7 +190,7 @@ const defineAssociations = () => {
     as: "medicationRecords",
     onDelete: "CASCADE",
   });
-  
+
   Medication.belongsTo(UserProfile, {
     foreignKey: "userId",
     as: "user",
@@ -238,6 +240,38 @@ const defineAssociations = () => {
     foreignKey: "userId",
     onDelete: "CASCADE",
   });
+
+  // User ↔ DietPlan
+  User.hasMany(DietPlan, {
+    foreignKey: "userId",
+    as: "dietPlans",
+    onDelete: "CASCADE",
+  });
+  DietPlan.belongsTo(User, { foreignKey: "userId" });
+
+  // Day ↔ DietPlan
+  Day.hasMany(DietPlan, {
+    foreignKey: "dayId",
+    as: "dietPlans",
+    onDelete: "CASCADE",
+  });
+  DietPlan.belongsTo(Day, { foreignKey: "dayId" });
+
+  // User ↔ ExercisePlan
+  User.hasMany(ExercisePlan, {
+    foreignKey: "userId",
+    as: "exercisePlans",
+    onDelete: "CASCADE",
+  });
+  ExercisePlan.belongsTo(User, { foreignKey: "userId" });
+
+  // Day ↔ ExercisePlan
+  Day.hasMany(ExercisePlan, {
+    foreignKey: "dayId",
+    as: "exercisePlans",
+    onDelete: "CASCADE",
+  });
+  ExercisePlan.belongsTo(Day, { foreignKey: "dayId" });
 };
 
 // Sync DB
