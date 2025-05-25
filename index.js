@@ -122,7 +122,7 @@ const defineAssociations = () => {
 // Sync the database
 const syncDatabase = async (alter = false) => {
   try {
-    await sequelize.sync({ alter });
+    await sequelize.sync({ force: true });
     console.log("Database synced successfully.");
   } catch (error) {
     console.error("Error syncing the database:", error);
