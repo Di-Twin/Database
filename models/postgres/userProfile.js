@@ -163,7 +163,7 @@ const UserProfile = sequelize.define(
     },
   },
   {
-    tableName: "UserProfile",
+    tableName: "userProfiles",
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",

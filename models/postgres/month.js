@@ -3,7 +3,7 @@ const { sequelize } = require("@dtwin/config");
 const Year = require("./year");
 
 const Month = sequelize.define(
-  "Month",
+  "months",
   {
     id: {
       type: DataTypes.UUID,

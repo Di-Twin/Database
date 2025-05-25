@@ -5,7 +5,7 @@ const User = require("./user");
 const Day = require("./day");
 
 const ExercisePlan = sequelize.define(
-  "ExercisePlan",
+  "exercisePlans",
   {
     id: {
       type: DataTypes.UUID,

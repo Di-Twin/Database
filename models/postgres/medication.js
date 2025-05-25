@@ -3,7 +3,7 @@ const { sequelize } = require("@dtwin/config");
 const User = require("./userProfile");
 
 const Medication = sequelize.define(
-  "Medication",
+  "medications",
   {
     id: {
       type: DataTypes.UUID,

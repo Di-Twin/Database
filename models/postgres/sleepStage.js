@@ -4,7 +4,7 @@ const SleepSession = require("./sleepSession");
 const User = require("./user");
 
 const SleepStage = sequelize.define(
-  "SleepStage",
+  "sleepStages",
   {
     id: {
       type: DataTypes.UUID,

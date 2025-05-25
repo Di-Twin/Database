@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 const { sequelize } = require("@dtwin/config");
 
 const Feedback = sequelize.define(
-  "Feedback",
+  "feedbacks",
   {
     id: {
       type: DataTypes.UUID,
