@@ -44,24 +44,24 @@ const connectPostgres = async () => {
 };
 
 // Import models (updated to lowercase plural names)
-const users = require("./models/postgres/users");
-const userProfiles = require("./models/postgres/userProfiles");
-const years = require("./models/postgres/years");
-const months = require("./models/postgres/months");
-const days = require("./models/postgres/days");
-const sleepSessions = require("./models/postgres/sleepSessions");
-const sleepStages = require("./models/postgres/sleepStages");
-const activitySessions = require("./models/postgres/activitySessions");
+const users = require("./models/postgres/user");
+const userProfiles = require("./models/postgres/userProfile");
+const years = require("./models/postgres/year");
+const months = require("./models/postgres/month");
+const days = require("./models/postgres/day");
+const sleepSessions = require("./models/postgres/sleepSession");
+const sleepStages = require("./models/postgres/sleepStage");
+const activitySessions = require("./models/postgres/activitySession");
 const healthMetrics = require("./models/postgres/healthMetrics");
 const monthlyHealthMetrics = require("./models/postgres/monthlyHealthMetrics");
-const foodSessions = require("./models/postgres/foodSessions");
-const foodItems = require("./models/postgres/foodItems");
+const foodSessions = require("./models/postgres/foodSession");
+const foodItems = require("./models/postgres/foodItem");
 const heartData = require("./models/postgres/heartData");
-const medications = require("./models/postgres/medications");
+const medications = require("./models/postgres/medication");
 const hrvData = require("./models/postgres/hrvData");
-const feedbacks = require("./models/postgres/feedbacks");
-const dietPlans = require("./models/postgres/dietPlans");
-const exercisePlans = require("./models/postgres/exercisePlans");
+const feedbacks = require("./models/postgres/feedback");
+const dietPlans = require("./models/postgres/dietPlan");
+const exercisePlans = require("./models/postgres/exercisePlan");
 
 // Define associations
 const defineAssociations = () => {
