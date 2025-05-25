@@ -70,6 +70,14 @@ const Activity = sequelize.define(
       type: DataTypes.FLOAT,
       allowNull: true,
     },
+    heart_rate_zones: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+    },
+    intensity_level: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
     created_at: {
       type: DataTypes.DATE,
       allowNull: false,

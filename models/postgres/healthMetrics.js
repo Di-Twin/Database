@@ -144,6 +144,18 @@ const HealthMetrics = sequelize.define(
       type: DataTypes.FLOAT,
       allowNull: true,
     },
+    activity_minutes: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+    },
+    skin_temp: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
+    breathing_rate: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
   },
   {
     tableName: "health_metrics",

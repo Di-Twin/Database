@@ -1,7 +1,44 @@
-// config/index.js (for centralizing imports)
-const { connectMongoDB, connectPostgres, sequelize } = require("@dtwin/config");
+const { Sequelize } = require("sequelize");
+const mongoose = require("mongoose");
+require("dotenv").config();
 
-// 🏗️ Import Models
+// PostgreSQL connection
+const sequelize = new Sequelize(
+  process.env.POSTGRES_DB,
+  process.env.POSTGRES_USER,
+  process.env.POSTGRES_PASSWORD,
+  {
+    host: process.env.POSTGRES_HOST,
+    dialect: "postgres",
+    port: process.env.POSTGRES_PORT,
+    logging: false, // Disable logging
+  }
+);
+
+// MongoDB connection
+const connectMongoDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("Connected to MongoDB");
+  } catch (error) {
+    console.error("MongoDB connection error:", error);
+  }
+};
+
+// Test the PostgreSQL connection
+const connectPostgres = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("Connection to PostgreSQL has been established successfully.");
+  } catch (error) {
+    console.error("Unable to connect to the PostgreSQL database:", error);
+  }
+};
+
+// Import models
 const User = require("./models/postgres/user");
 const UserProfile = require("./models/postgres/userProfile");
 const Year = require("./models/postgres/year");
@@ -16,68 +53,80 @@ const FoodSession = require("./models/postgres/foodSession");
 const FoodItem = require("./models/postgres/foodItem");
 const HeartData = require("./models/postgres/heartData");
 const Medication = require("./models/postgres/medication");
+const HrvData = require("./models/postgres/hrvData");
 const Feedback = require("./models/postgres/feedback");
 const DietPlan = require("./models/postgres/dietPlan");
 const ExercisePlan = require("./models/postgres/exercisePlan");
 
-// 🔗 Define Associations
+// Define associations
 const defineAssociations = () => {
-  // User ↔ UserProfile
+  // User ↔ UserProfile (one-to-one)
   User.hasOne(UserProfile, {
     foreignKey: "userId",
+    as: "profile",
     onDelete: "CASCADE",
-    onUpdate: "CASCADE",
   });
   UserProfile.belongsTo(User, {
     foreignKey: "userId",
     onDelete: "CASCADE",
-    onUpdate: "CASCADE",
   });
 
-  // Year ↔ Month
+  // User ↔ Year (one-to-many)
+  User.hasMany(Year, {
+    foreignKey: "userId",
+    as: "years",
+    onDelete: "CASCADE",
+  });
+  Year.belongsTo(User, {
+    foreignKey: "userId",
+    onDelete: "CASCADE",
+  });
+
+  // Year ↔ Month (one-to-many)
   Year.hasMany(Month, {
     foreignKey: "yearId",
     as: "months",
     onDelete: "CASCADE",
   });
-  Month.belongsTo(Year, { foreignKey: "yearId", onDelete: "CASCADE" });
+  Month.belongsTo(Year, {
+    foreignKey: "yearId",
+    onDelete: "CASCADE",
+  });
 
-  // Month ↔ Day
+  // Month ↔ Day (one-to-many)
   Month.hasMany(Day, {
     foreignKey: "monthId",
     as: "days",
     onDelete: "CASCADE",
   });
-  Day.belongsTo(Month, { foreignKey: "monthId", onDelete: "CASCADE" });
-
-  // Day ↔ SleepSession
-  Day.hasOne(SleepSession, {
-    foreignKey: "dayId",
-    as: "sleepSession",
+  Day.belongsTo(Month, {
+    foreignKey: "monthId",
     onDelete: "CASCADE",
   });
-  SleepSession.belongsTo(Day, { foreignKey: "dayId", onDelete: "CASCADE" });
 
-  // User ↔ SleepSession
+  // User ↔ SleepSession (one-to-many)
   User.hasMany(SleepSession, {
     foreignKey: "userId",
     as: "sleepSessions",
     onDelete: "CASCADE",
   });
-  SleepSession.belongsTo(User, { foreignKey: "userId", onDelete: "CASCADE" });
+  SleepSession.belongsTo(User, {
+    foreignKey: "userId",
+    onDelete: "CASCADE",
+  });
 
-  // SleepSession ↔ SleepStage
+  // SleepSession ↔ SleepStage (one-to-many)
   SleepSession.hasMany(SleepStage, {
-    foreignKey: "sessionId",
-    as: "stages",
+    foreignKey: "sleepSessionId",
+    as: "sleepStages",
     onDelete: "CASCADE",
   });
   SleepStage.belongsTo(SleepSession, {
-    foreignKey: "sessionId",
+    foreignKey: "sleepSessionId",
     onDelete: "CASCADE",
   });
 
-  // User ↔ ActivitySession
+  // User ↔ ActivitySession (one-to-many)
   User.hasMany(ActivitySession, {
     foreignKey: "userId",
     as: "activitySessions",
@@ -88,27 +137,8 @@ const defineAssociations = () => {
     onDelete: "CASCADE",
   });
 
-  // Day ↔ ActivitySession
-  Day.hasMany(ActivitySession, {
-    foreignKey: "dayId",
-    as: "activitySessions",
-    onDelete: "CASCADE",
-  });
-  ActivitySession.belongsTo(Day, { foreignKey: "dayId", onDelete: "CASCADE" });
-
-  // User ↔ HealthMetrics
-  User.hasMany(HealthMetrics, {
-    foreignKey: "userId",
-    as: "healthMetrics",
-    onDelete: "CASCADE",
-  });
-  HealthMetrics.belongsTo(User, {
-    foreignKey: "userId",
-    onDelete: "CASCADE",
-  });
-
-  // Day ↔ HealthMetrics
-  Day.hasMany(HealthMetrics, {
+  // Day ↔ HealthMetrics (one-to-one)
+  Day.hasOne(HealthMetrics, {
     foreignKey: "dayId",
     as: "healthMetrics",
     onDelete: "CASCADE",
@@ -118,19 +148,8 @@ const defineAssociations = () => {
     onDelete: "CASCADE",
   });
 
-  // User ↔ MonthlyHealthMetrics
-  User.hasMany(MonthlyHealthMetrics, {
-    foreignKey: "userId",
-    as: "monthlyHealthMetrics",
-    onDelete: "CASCADE",
-  });
-  MonthlyHealthMetrics.belongsTo(User, {
-    foreignKey: "userId",
-    onDelete: "CASCADE",
-  });
-
-  // Month ↔ MonthlyHealthMetrics
-  Month.hasMany(MonthlyHealthMetrics, {
+  // Month ↔ MonthlyHealthMetrics (one-to-one)
+  Month.hasOne(MonthlyHealthMetrics, {
     foreignKey: "monthId",
     as: "monthlyHealthMetrics",
     onDelete: "CASCADE",
@@ -140,7 +159,7 @@ const defineAssociations = () => {
     onDelete: "CASCADE",
   });
 
-  // User ↔ FoodSession
+  // User ↔ FoodSession (one-to-many)
   User.hasMany(FoodSession, {
     foreignKey: "userId",
     as: "foodSessions",
@@ -151,18 +170,18 @@ const defineAssociations = () => {
     onDelete: "CASCADE",
   });
 
-  // Day ↔ FoodSession
-  Day.hasMany(FoodSession, {
-    foreignKey: "dayId",
-    as: "foodSessions",
+  // FoodSession ↔ FoodItem (one-to-many)
+  FoodSession.hasMany(FoodItem, {
+    foreignKey: "foodSessionId",
+    as: "foodItems",
     onDelete: "CASCADE",
   });
-  FoodSession.belongsTo(Day, {
-    foreignKey: "dayId",
+  FoodItem.belongsTo(FoodSession, {
+    foreignKey: "foodSessionId",
     onDelete: "CASCADE",
   });
 
-  // User ↔ HeartData
+  // User ↔ HeartData (one-to-many)
   User.hasMany(HeartData, {
     foreignKey: "userId",
     as: "heartData",
@@ -173,118 +192,51 @@ const defineAssociations = () => {
     onDelete: "CASCADE",
   });
 
-  // Day ↔ HeartData
-  Day.hasMany(HeartData, {
+  // User ↔ Medication (one-to-many)
+  User.hasMany(Medication, {
+    foreignKey: "userId",
+    as: "medications",
+    onDelete: "CASCADE",
+  });
+  Medication.belongsTo(User, {
+    foreignKey: "userId",
+    onDelete: "CASCADE",
+  });
+
+  // User ↔ HrvData
+  User.hasMany(HrvData, {
+    foreignKey: "userId",
+    as: "hrvData",
+    onDelete: "CASCADE",
+  });
+  HrvData.belongsTo(User, {
+    foreignKey: "userId",
+    onDelete: "CASCADE",
+  });
+
+  // Day ↔ HrvData
+  Day.hasMany(HrvData, {
     foreignKey: "dayId",
-    as: "heartData",
+    as: "hrvData",
     onDelete: "CASCADE",
   });
-  HeartData.belongsTo(Day, {
-    foreignKey: "dayId",
-    onDelete: "CASCADE",
-  });
-
-  // UserProfile ↔ Medication
-  UserProfile.hasMany(Medication, {
-    foreignKey: "userId",
-    as: "medicationRecords",
-    onDelete: "CASCADE",
-  });
-
-  Medication.belongsTo(UserProfile, {
-    foreignKey: "userId",
-    as: "user",
-    onDelete: "CASCADE",
-  });
-
-  // FoodSession ↔ FoodItem
-  FoodSession.hasMany(FoodItem, {
-    foreignKey: "sessionId",
-    as: "foodItems",
-    onDelete: "CASCADE",
-  });
-  FoodItem.belongsTo(FoodSession, {
-    foreignKey: "sessionId",
-    onDelete: "CASCADE",
-  });
-
-  // Update User ↔ FoodSession association
-  User.hasMany(FoodSession, {
-    foreignKey: "userId",
-    as: "userFoodSessions",
-    onDelete: "CASCADE",
-  });
-  FoodSession.belongsTo(User, {
-    foreignKey: "userId",
-    onDelete: "CASCADE",
-  });
-
-  // Update Day ↔ FoodSession association
-  Day.hasMany(FoodSession, {
-    foreignKey: "dayId",
-    as: "dayFoodSessions",
-    onDelete: "CASCADE",
-  });
-  FoodSession.belongsTo(Day, {
+  HrvData.belongsTo(Day, {
     foreignKey: "dayId",
     onDelete: "CASCADE",
   });
-
-  // User ↔ Feedback
-  User.hasMany(Feedback, {
-    foreignKey: "userId",
-    as: "feedbacks",
-    onDelete: "CASCADE",
-  });
-  Feedback.belongsTo(User, {
-    foreignKey: "userId",
-    onDelete: "CASCADE",
-  });
-
-  // User ↔ DietPlan
-  User.hasMany(DietPlan, {
-    foreignKey: "userId",
-    as: "dietPlans",
-    onDelete: "CASCADE",
-  });
-  DietPlan.belongsTo(User, { foreignKey: "userId" });
-
-  // Day ↔ DietPlan
-  Day.hasMany(DietPlan, {
-    foreignKey: "dayId",
-    as: "dietPlans",
-    onDelete: "CASCADE",
-  });
-  DietPlan.belongsTo(Day, { foreignKey: "dayId" });
-
-  // User ↔ ExercisePlan
-  User.hasMany(ExercisePlan, {
-    foreignKey: "userId",
-    as: "exercisePlans",
-    onDelete: "CASCADE",
-  });
-  ExercisePlan.belongsTo(User, { foreignKey: "userId" });
-
-  // Day ↔ ExercisePlan
-  Day.hasMany(ExercisePlan, {
-    foreignKey: "dayId",
-    as: "exercisePlans",
-    onDelete: "CASCADE",
-  });
-  ExercisePlan.belongsTo(Day, { foreignKey: "dayId" });
 };
 
-// Sync DB
-const syncDatabase = async () => {
+// Sync the database
+const syncDatabase = async (alter = false) => {
   try {
-    await sequelize.authenticate();
-    defineAssociations();
-    await sequelize.sync({ alter: true });
-    console.log("✅ Database synced successfully!");
+    await sequelize.sync({ alter: alter });
+    console.log("Database synced successfully.");
   } catch (error) {
-    console.error("❌ Error syncing database:", error);
+    console.error("Error syncing the database:", error);
   }
 };
+
+defineAssociations();
 
 module.exports = {
   sequelize,
@@ -304,6 +256,7 @@ module.exports = {
   FoodItem,
   HeartData,
   Medication,
+  HrvData,
   syncDatabase,
   Feedback,
   DietPlan,
