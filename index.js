@@ -62,6 +62,7 @@ const hrvData = require("./models/postgres/hrvData");
 const feedbacks = require("./models/postgres/feedback");
 const dietPlans = require("./models/postgres/dietPlan");
 const exercisePlans = require("./models/postgres/exercisePlan");
+const User = require("./models/postgres/user");
 
 // Define associations
 const defineAssociations = () => {
@@ -134,23 +135,23 @@ module.exports = {
   sequelize,
   connectMongoDB,
   connectPostgres,
-  users,
-  userProfiles,
-  years,
-  months,
-  days,
-  sleepSessions,
-  sleepStages,
-  activitySessions,
-  healthMetrics,
-  monthlyHealthMetrics,
-  foodSessions,
-  foodItems,
-  heartData,
-  medications,
-  hrvData,
-  feedbacks,
-  dietPlans,
-  exercisePlans,
+  User: users,
+  UserProfile: userProfiles,
+  Year: years,
+  Month: months,
+  Day: days,
+  SleepSession: sleepSessions,
+  SleepStage: sleepStages,
+  ActivitySession: activitySessions,
+  HealthMetric: healthMetrics,
+  MonthlyHealthMetric: monthlyHealthMetrics,
+  FoodSession: foodSessions,
+  FoodItem: foodItems,
+  HeartData: heartData,
+  Medication: medications,
+  HrvData: hrvData,
+  Feedback: feedbacks,
+  DietPlan: dietPlans,
+  ExercisePlan: exercisePlans,
   syncDatabase,
 };
