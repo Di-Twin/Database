@@ -98,6 +98,69 @@ const UserProfile = sequelize.define(
       defaultValue: [],
       comment: "Array of FCM tokens for push notifications across user devices",
     },
+    disliked_meals: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+      defaultValue: null,
+      comment: "List of disliked meals",
+    },
+    disliked_exercises: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+      defaultValue: null,
+      comment: "List of disliked exercises",
+    },
+    diet_preferences: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+      defaultValue: {
+        disliked_meals: [],
+        disliked_ingredients: [],
+        allergies: [],
+        dietary_restrictions: [],
+      },
+    },
+    exercise_preferences: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+      defaultValue: {
+        equipment_available: [],
+        preferred_types: [],
+        time_available: 30,
+        days_per_week: 3,
+      },
+    },
+    last_plan_update: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    gut_status: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+      defaultValue: {
+        score: null,
+        message: "",
+      },
+      comment: "Gut health score and interpretation message",
+    },
+    cardiac_status: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+      defaultValue: {
+        score: null,
+        message: "",
+      },
+      comment: "Cardiac health score and interpretation message",
+    },
+    diabetes_status: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+      defaultValue: {
+        score: null,
+        message: "",
+      },
+      comment: "Diabetes risk score and interpretation message",
+    },
   },
   {
     tableName: "UserProfile",
@@ -107,6 +170,13 @@ const UserProfile = sequelize.define(
     hooks: {
       beforeSave: (userProfile) => {
         const { weight_kg, height_cm, age, gender } = userProfile;
+
+        if (
+          userProfile.changed("diet_plan") ||
+          userProfile.changed("exercise_plan")
+        ) {
+          userProfile.last_plan_update = new Date();
+        }
 
         if (weight_kg && height_cm && age && gender) {
           try {
@@ -145,8 +215,7 @@ function calculateBMR(weightKg, heightCm, ageYears, gender) {
   };
 
   // BMR Calculation
-  const bmr =
-    10 * weightKg + 6.25 * heightCm - 5 * ageYears + BASE_BMR[gender];
+  const bmr = 10 * weightKg + 6.25 * heightCm - 5 * ageYears + BASE_BMR[gender];
 
   return bmr;
 }
