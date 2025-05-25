@@ -134,6 +134,33 @@ const UserProfile = sequelize.define(
       type: DataTypes.DATE,
       allowNull: true,
     },
+    gut_status: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+      defaultValue: {
+        score: null,
+        message: "",
+      },
+      comment: "Gut health score and interpretation message",
+    },
+    cardiac_status: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+      defaultValue: {
+        score: null,
+        message: "",
+      },
+      comment: "Cardiac health score and interpretation message",
+    },
+    diabetes_status: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+      defaultValue: {
+        score: null,
+        message: "",
+      },
+      comment: "Diabetes risk score and interpretation message",
+    },
   },
   {
     tableName: "UserProfile",

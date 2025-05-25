@@ -4,16 +4,22 @@ require("dotenv").config();
 
 // PostgreSQL connection
 const sequelize = new Sequelize(
-  process.env.POSTGRES_DB,
-  process.env.POSTGRES_USER,
-  process.env.POSTGRES_PASSWORD,
+  "deployment", // database name
+  "neondb_owner", // username
+  "npg_aoBzfd25NykC", // password
   {
-    host: process.env.POSTGRES_HOST,
+    host: "ep-lively-cake-a1tf47n7-pooler.ap-southeast-1.aws.neon.tech",
     dialect: "postgres",
-    port: process.env.POSTGRES_PORT,
-    logging: false, // Disable logging
+    logging: false,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
   }
 );
+
 
 // MongoDB connection
 const connectMongoDB = async () => {
