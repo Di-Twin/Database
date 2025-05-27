@@ -1,29 +1,5 @@
-const { Sequelize } = require("sequelize");
-const mongoose = require("mongoose");
-require("dotenv").config();
+const { sequelize, connectMongoDB, connectPostgres } = require("@dtwin/config")
 
-// MongoDB connection
-const connectMongoDB = async () => {
-  try {
-    await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log("Connected to MongoDB");
-  } catch (error) {
-    console.error("MongoDB connection error:", error);
-  }
-};
-
-// Test the PostgreSQL connection
-const connectPostgres = async () => {
-  try {
-    await sequelize.authenticate();
-    console.log("Connection to PostgreSQL has been established successfully.");
-  } catch (error) {
-    console.error("Unable to connect to the PostgreSQL database:", error);
-  }
-};
 
 // Import models (updated to lowercase plural names)
 const users = require("./models/postgres/user");
@@ -172,7 +148,7 @@ const defineAssociations = () => {
 // Sync the database
 const syncDatabase = async () => {
   try {
-    await Sequelize.sync({ alter: true });
+    await sequelize.sync({ alter: true });
     console.log("Database synced successfully.");
   } catch (error) {
     console.error("Error syncing the database:", error);
@@ -182,7 +158,7 @@ const syncDatabase = async () => {
 defineAssociations();
 
 module.exports = {
-  Sequelize,
+  sequelize,
   connectMongoDB,
   connectPostgres,
   User: users,
