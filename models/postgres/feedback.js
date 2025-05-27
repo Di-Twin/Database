@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("@dtwin/config");
-
+const User = require("./user")
 const Feedback = sequelize.define(
   "feedbacks",
   {
@@ -13,7 +13,7 @@ const Feedback = sequelize.define(
       type: DataTypes.UUID,
       allowNull: false,
       references: {
-        model: "User",
+        model: User,
         key: "userId",
       },
     },
